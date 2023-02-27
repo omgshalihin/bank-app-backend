@@ -10,28 +10,39 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-    public Flux<ResponseEntity<User>> getAllUsers() {
-        return userRepository.findAll()
-                .map(ResponseEntity::ok);
+
+    public Mono<User> saveUser(User newUser) {
+        return userRepository.save(newUser);
     }
 
-    public Mono<User> getSpecificUserById(String id) {
+    public Flux<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public Mono<User> getUserById(String id) {
         return userRepository.findById(id);
     }
 
-    public Mono<ResponseEntity<User>> saveUser(User newUser) {
-        String newUserName = newUser.getUserName();
-        String newUserEmail = newUser.getUserEmail();
-        if (userRepository.getUserByUserNameAndUserEmail(newUserName, newUserEmail) != null) {
-            System.out.println("found user");
-            return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
-        }
-        return userRepository.save(newUser)
-                .map(ResponseEntity::ok);
+    public Mono<User> deleteUserById(String id) {
+        return userRepository.findById(id)
+                .flatMap(existingUser ->
+                        userRepository.delete(existingUser)
+                                .then(Mono.just(existingUser))
+                );
+    }
+
+    public Mono<User> updateUserById(String id, User userDetails) {
+        return userRepository.findById(id)
+                .flatMap(dbUser -> {
+                    dbUser.setUserAccountBalance(userDetails.getUserAccountBalance());
+                    return userRepository.save(dbUser);
+                });
     }
 }

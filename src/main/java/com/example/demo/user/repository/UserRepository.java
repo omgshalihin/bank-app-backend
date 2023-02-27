@@ -10,7 +10,5 @@ import reactor.core.publisher.Mono;
 public interface UserRepository extends ReactiveMongoRepository<User, String> {
 
 //    Flux<ProductDto> findByPriceBetween(Range<Double> priceRange);
-    Mono<User> getUserByUserNameAndUserEmail(String userName, String userEmail);
-
 
 }
