@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -39,5 +42,9 @@ public class UserService {
                     dbUser.setUserAccountBalance(userDetails.getUserAccountBalance());
                     return userRepository.save(dbUser);
                 });
+    }
+
+    public Mono<User> getUserByEmail(String email) {
+        return userRepository.findUserByUserEmail(email);
     }
 }

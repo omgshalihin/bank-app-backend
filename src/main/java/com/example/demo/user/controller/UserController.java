@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin
@@ -28,14 +30,21 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<User>> getUserById(@PathVariable String id) {
+    public Mono<ResponseEntity<User>> getUserById(@PathVariable("id") String id) {
         return userService.getUserById(id)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("{id}")
-    public Mono<ResponseEntity<User>> updateUserById(@PathVariable String id, @RequestBody User userDetails) {
+    @GetMapping("account/{email}")
+    public Mono<ResponseEntity<User>> getUserByEmail(@PathVariable("email") String email) {
+        return userService.getUserByEmail(email)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public Mono<ResponseEntity<User>> updateUserById(@PathVariable("id") String id, @RequestBody User userDetails) {
         return userService.updateUserById(id, userDetails)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
@@ -44,7 +53,7 @@ public class UserController {
 
 
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Void>> deleteUserById(@PathVariable String id) {
+    public Mono<ResponseEntity<Void>> deleteUserById(@PathVariable("id") String id) {
         return userService.deleteUserById(id)
                 .map(user -> ResponseEntity.status(HttpStatus.OK).<Void>build())
                 .defaultIfEmpty(ResponseEntity.notFound().build());
