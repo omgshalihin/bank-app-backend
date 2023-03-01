@@ -1,5 +1,6 @@
 package com.example.demo.user.controller;
 
+import com.example.demo.user.model.Account;
 import com.example.demo.user.model.User;
 import com.example.demo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<User>> updateUserById(@PathVariable("id") String id, @RequestBody User userDetails) {
-        return userService.updateUserById(id, userDetails)
+    public Mono<ResponseEntity<User>> updateUserAccountById(@PathVariable("id") String id, @RequestBody Account userDetails) {
+        return userService.updateUserAccountById(id, userDetails)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
     }

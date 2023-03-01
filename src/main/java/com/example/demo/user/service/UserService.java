@@ -1,5 +1,6 @@
 package com.example.demo.user.service;
 
+import com.example.demo.user.model.Account;
 import com.example.demo.user.model.User;
 import com.example.demo.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,20 @@ public class UserService {
                 );
     }
 
-    public Mono<User> updateUserById(String id, User userDetails) {
+//    public Mono<User> updateUserById(String id, User userDetails) {
+//        return userRepository.findById(id)
+//                .flatMap(dbUser -> {
+//                    dbUser.setUserAccountBalance(userDetails.getUserAccountBalance());
+//                    return userRepository.save(dbUser);
+//                });
+//    }
+public Mono<User> updateUserAccountById(String id, Account userDetails) {
         return userRepository.findById(id)
                 .flatMap(dbUser -> {
-                    dbUser.setUserAccountBalance(userDetails.getUserAccountBalance());
+                    dbUser.getUserAccount().add(new Account(userDetails.getAccountName(), userDetails.getAccountBalance()));
                     return userRepository.save(dbUser);
                 });
-    }
+}
 
     public Mono<User> getUserByEmail(String email) {
         return userRepository.findUserByUserEmail(email);
