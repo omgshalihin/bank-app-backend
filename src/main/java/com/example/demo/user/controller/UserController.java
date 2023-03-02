@@ -59,4 +59,11 @@ public class UserController {
                 .map(user -> ResponseEntity.status(HttpStatus.OK).<Void>build())
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
+
+    @PatchMapping("/{id}")
+    public Mono<ResponseEntity<User>> updateUserAccountBalanceById(@PathVariable("id") String id, @RequestParam("account") String accountId, @RequestBody Account userDetails) {
+        return userService.updateUserAccountBalanceById(id, accountId, userDetails)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.badRequest().build());
+    }
 }

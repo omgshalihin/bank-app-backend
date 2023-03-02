@@ -55,4 +55,15 @@ public Mono<User> updateUserAccountById(String id, Account userDetails) {
     public Mono<User> getUserByEmail(String email) {
         return userRepository.findUserByUserEmail(email);
     }
+
+
+    public Mono<User> updateUserAccountBalanceById(String id, String accountId, Account userDetails) {
+        return userRepository.findById(id)
+                .flatMap(dbUser -> {
+                    dbUser.getUserAccount().stream()
+                            .filter(account -> account.getAccountId().equals(accountId))
+                            .forEach(el -> el.setAccountBalance(userDetails.getAccountBalance()));
+                    return userRepository.save(dbUser);
+                });
+    }
 }
