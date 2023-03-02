@@ -19,6 +19,7 @@ public class User {
     private String id;
     private String userName;
     private String userEmail;
+    private String userImage;
     private List<Account> userAccount = new ArrayList<>();
 
 
