@@ -1,6 +1,7 @@
 package com.example.demo.user.controller;
 
 import com.example.demo.user.model.Account;
+import com.example.demo.user.model.History;
 import com.example.demo.user.model.User;
 import com.example.demo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,6 @@ public class UserController {
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
     }
 
-
-
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Void>> deleteUserById(@PathVariable("id") String id) {
         return userService.deleteUserById(id)
@@ -70,6 +69,13 @@ public class UserController {
     @PatchMapping("/{id}")
     public Mono<ResponseEntity<User>> updateUserAccountBalanceById(@PathVariable("id") String id, @RequestParam("account") String accountId, @RequestBody Account userDetails) {
         return userService.updateUserAccountBalanceById(id, accountId, userDetails)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.badRequest().build());
+    }
+
+    @PutMapping("/history/{userId}")
+    public Mono<ResponseEntity<User>> userTransactionHistory(@PathVariable("userId") String userId, @RequestBody History historyDetails) {
+        return userService.userTransactionHistory(userId, historyDetails)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
     }

@@ -22,6 +22,6 @@ public class User {
     private String userImage;
     private List<Account> userAccount = new ArrayList<>();
 
-
     //list of user's transaction history
+    private List<History> userTransactionHistory = new ArrayList<>();
 }
