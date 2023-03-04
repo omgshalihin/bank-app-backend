@@ -51,6 +51,13 @@ public class UserController {
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
     }
 
+    @PutMapping("/transfer/{email}")
+    public Mono<ResponseEntity<User>> updateRecipientAccountByEmail(@PathVariable("email") String email, @RequestBody Account userDetails) {
+        return userService.updateRecipientAccountByEmail(email, userDetails)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.badRequest().build());
+    }
+
 
 
     @DeleteMapping("/{id}")

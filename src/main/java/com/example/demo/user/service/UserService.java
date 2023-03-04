@@ -66,4 +66,12 @@ public Mono<User> updateUserAccountById(String id, Account userDetails) {
                     return userRepository.save(dbUser);
                 });
     }
+
+    public Mono<User> updateRecipientAccountByEmail(String email, Account userDetails) {
+        return userRepository.findUserByUserEmail(email)
+                .flatMap(dbUser -> {
+                    dbUser.getUserAccount().add(new Account(userDetails.getAccountName(), userDetails.getAccountBalance()));
+                    return userRepository.save(dbUser);
+                });
+    }
 }
