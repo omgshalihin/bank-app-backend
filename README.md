@@ -1,4 +1,4 @@
-# Financial Management App (for educational purpose only)
+# Financial Management App (for educational purposes only)
 ### Link to [`frontend code`](https://github.com/omgshalihin/bank-app-frontend)
 
 ## App Preview
