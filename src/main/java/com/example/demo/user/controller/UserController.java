@@ -79,4 +79,10 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.badRequest().build());
     }
+    @PutMapping("/transfer/history/{email}")
+    public Mono<ResponseEntity<User>> userTransactionHistoryByEmail(@PathVariable("email") String email, @RequestBody History historyDetails) {
+        return userService.userTransactionHistoryByEmail(email, historyDetails)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.badRequest().build());
+    }
 }

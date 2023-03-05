@@ -80,4 +80,16 @@ public Mono<User> updateUserAccountById(String id, Account userDetails) {
                     return userRepository.save(dbUser);
                 });
     }
+
+    public Mono<User> userTransactionHistoryByEmail(String email, History historyDetails) {
+        return userRepository.findUserByUserEmail(email)
+                .flatMap(dbUser -> {
+                    dbUser.getUserTransactionHistory().add(new History(
+                            historyDetails.getAccountId(),
+                            historyDetails.getAccountName(),
+                            historyDetails.getTransactionStatus(),
+                            historyDetails.getTransactionAmount()));
+                    return userRepository.save(dbUser);
+                });
+    }
 }
