@@ -22,16 +22,13 @@ A financial management app that is designed for educational purposes only. It fe
 ![bank-app-giphy](https://user-images.githubusercontent.com/52775977/222988594-f42c9eb1-fedd-464b-bc30-91dc6c9a0449.gif)
 
 ## To Get Started
-clone this git repository into your local folder
+- clone this git repository into your local folder
 ```
-git clone git@github.com:omgshalihin/bank-app-frontend.git
+git clone git@github.com:omgshalihin/bank-app-backend.git
 ```
-go into the folder and open with your favourite IDE
+- go into the folder and open with your favourite IDE (intelliJ)
 ```
-cd <folder> && code .
-npm i
+cd <folder> && idea pom.xml
 ```
-view app on localhost
-```
-npm run dev
-```
+- go into `properties.yml` file and update the MongoDB Atlas `connection string`.
+- start API to host it locally at http://localhost:8080/api/users
