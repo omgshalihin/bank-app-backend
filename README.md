@@ -33,3 +33,12 @@ cd <folder> && idea pom.xml
 ```
 - go into `properties.yml` file and update the MongoDB Atlas `connection string`.
 - start API to host it locally at http://localhost:8080/api/users
+
+## Swagger UI and OpenAPI Documentation
+- Spring [Documentation](https://springdoc.org/v2/#spring-webflux-support)
+```
+http://localhost:8080/v3/api-docs
+```
+```
+http://localhost:8080/swagger-ui.html
+```
